@@ -1,20 +1,21 @@
 var express = require('express');
-var app = express();
+var path = require('path');
+var nunjucks = require('nunjucks');
+var router = express();
 
-var compression = require('compression');
-var morgan = require('morgan');
-
-app.use(compression());
-app.use(morgan('dev'));
-
-app.use(require('./frontend'));
-app.use(require('./backend'));
-
-app.use(function(req, res, next) {
-  res.status(404).send('Sorry cant find that!');
+nunjucks.configure(path.join(__dirname, 'views'), {
+    autoescape: true,
+    express: router
 });
 
-module.exports=app;
+router.use(express.static(path.join(__dirname, 'public')));
+
+router.route('/').
+    get(function(req, res) {
+        res.render('metaman.html');
+    });
+
+module.exports = router;
 
 // Copyright 2015 Giles Dring
 
