@@ -9,9 +9,10 @@
 </li>
 </ul>
 
-<button ng-click="ctrl.addRecord('test')">Add record</button>
+<button ng-click="ctrl.addRecord()">Add record</button>
 <ul>
-<li ng-repeat="f in ctrl.records">
+<li ng-repeat="f in ctrl.dataset().records">
+<input type="text" ng-model="f.name">
 </li>
 </ul>
 
