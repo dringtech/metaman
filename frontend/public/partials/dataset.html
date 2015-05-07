@@ -1,0 +1,26 @@
+<p>Dataset screen</p>
+
+<button ng-click="ctrl.save();">Save Data Set</button>
+
+<ul>
+<li ng-repeat="f in ctrl.fields">
+    <label>{{f}}</label>
+    <span>{{ctrl.dataset()[f]}}</span>
+</li>
+</ul>
+
+<button ng-click="ctrl.addRecord('test')">Add record</button>
+<ul>
+<li ng-repeat="f in ctrl.records">
+</li>
+</ul>
+
+
+<pre>
+Dataset:
+{{ctrl.dataset() | json}}
+
+Fields:
+{{ctrl.fields}}
+</pre>
+

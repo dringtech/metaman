@@ -13,7 +13,13 @@ var model = require('./models');
 
 // Set up routes
 var router = express();
-restify.serve(router, model.DataSet);
+var options = {
+    findOneAndUpdate: false,
+    lowercase: true,
+    strict: true,
+    fullErrors: true
+};
+restify.serve(router, model.DataSet, options);
 
 module.exports = router;
 

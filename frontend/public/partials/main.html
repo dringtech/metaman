@@ -1,5 +1,12 @@
 <p>Main screen</p>
 
+<input type='text' ng-model='ctrl.datasetName'>
+<button ng-click='ctrl.createDataSet(ctrl.datasetName);'>Create Dataset</button>
+
+<ul>
+<li ng-repeat="d in ctrl.datasetList | filter:ctrl.datasetName track by d._id">
+  <a href="#/dataset/{{d._id}}">{{d.name}}</a></li>
+</ul>
 <!--
   Copyright 2015 Giles Dring
 

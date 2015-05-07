@@ -1,5 +1,65 @@
 var metamanApp = angular.module('metamanApp', [
-  'ngRoute'
+  'ngRoute', 'ngResource'
+]);
+
+metamanApp.factory( 'Resource', [ '$log', '$resource', function( $log, $resource ) {
+  return function( url, params, methods ) {
+    var defaults = {
+      update: { method: 'put', isArray: false },
+      create: { method: 'post' }
+    };
+
+    methods = angular.extend( defaults, methods );
+
+    var resource = $resource( url, params, methods );
+
+    resource.prototype.$save = function() {
+      if ( !this._id ) {
+        return this.$create();
+      }
+      else {
+        return this.$update();
+      }
+    };
+
+    return resource;
+  };
+}]);
+
+metamanApp.factory('DataSets', function(Resource) {
+  return new Resource('/api/v1/DataSets/:id', { id: '@_id'});
+});
+
+metamanApp.service('metamanDataset', ['DataSets',
+  function(DataSets) {
+    var currentDataset;
+
+    var newDataSet = function(name) {
+      currentDataset = DataSets.create({'name': name});
+      return currentDataset;
+    };
+
+    var selectDataSet = function(id) {
+      currentDataset = DataSets.get({ id: id });
+    };
+
+    var addRecord = function(name) {
+      currentDataset.records.push({"name": name});
+    };
+
+    var saveRecord = function(name) {
+      currentDataset.$save();
+    };
+
+    return {
+      list: function() { return DataSets.query(); },
+      current: function() { return currentDataset; },
+      create: newDataSet,
+      save: saveRecord,
+      select: selectDataSet,
+      addRecord: addRecord
+    };
+  }
 ]);
 
 metamanApp.config(['$routeProvider',
@@ -7,11 +67,15 @@ metamanApp.config(['$routeProvider',
     $routeProvider.
       when('/', {
         templateUrl: '/partials/main.html',
-        controller: 'metamanMainController'
+        controller: 'metamanMainController as ctrl'
+      }).
+      when('/dataset/:id', {
+        templateUrl: '/partials/dataset.html',
+        controller: 'metamanDatasetController as ctrl'
       }).
       when('/about', {
         templateUrl: '/partials/about.html',
-        controller: 'metamanAboutController'
+        controller: 'metamanAboutController as ctrl'
       }).
       otherwise({
         redirectTo: '/'
@@ -19,11 +83,36 @@ metamanApp.config(['$routeProvider',
   }]);
 
 
-metamanApp.controller('metamanMainController', [
-    function() {
-        console.log('main controller initialising');
-    }
-    ]);
+metamanApp.controller('metamanMainController', ['$log', '$location', 'metamanDataset',
+  function( $log, $location, metamanDataset ) {
+    $log.info('main controller initialising');
+    var self = this;
+    self.datasetList = metamanDataset.list();
+    self.datasetName = "";
+    self.createDataSet = function(name) {
+      metamanDataset.create(name)
+        .$promise.then(function (data, err) {
+          if (err) {
+            $log.error(err);
+          } else {
+            self.datasetList = metamanDataset.list();
+            $location.url('/dataset/'+data._id);
+          }
+        });
+      };
+  }
+  ]);
+
+metamanApp.controller('metamanDatasetController', [ '$routeParams', 'metamanDataset',
+  function($routeParams, metamanDataset) {
+    console.log('dataset controller initialising');
+    var self = this;
+    metamanDataset.select($routeParams.id);
+    self.fields = ['name'];
+    self.dataset = metamanDataset.current;
+    self.addRecord = metamanDataset.addRecord;
+    self.save = metamanDataset.save;
+  }]);
 
 metamanApp.controller('metamanAboutController', [
     function() {
