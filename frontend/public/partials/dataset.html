@@ -1,15 +1,15 @@
 <p>Dataset screen</p>
 
-<button ng-click="ctrl.save();">Save Data Set</button>
+<button type="button" class="btn btn-default" ng-click="ctrl.save();">Save Data Set</button>
 
 <ul>
 <li ng-repeat="f in ctrl.fields">
     <label>{{f}}</label>
-    <span>{{ctrl.dataset()[f]}}</span>
+    <input type="text" ng-model="ctrl.dataset()[f]">
 </li>
 </ul>
 
-<button ng-click="ctrl.addRecord()">Add record</button>
+<button type="button" class="btn btn-default" ng-click="ctrl.addRecord()">Add record</button>
 <div class="panel-group" role="tablist" aria-multiselectable="true" bs-collapse data-start-collapsed="true">
   <div class="panel panel-default" ng-repeat="f in ctrl.dataset().records">
     <div class="panel-heading" role="tab">
