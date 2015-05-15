@@ -45,6 +45,7 @@ metamanApp.service('metamanDataset', ['DataSets',
 
     var addRecord = function(name) {
       currentDataset.records.push({"name": name});
+      return currentDataset.records.length;
     };
 
     var saveRecord = function(name) {
@@ -110,8 +111,11 @@ metamanApp.controller('metamanDatasetController', [ '$routeParams', 'metamanData
     metamanDataset.select($routeParams.id);
     self.fields = ['name'];
     self.dataset = metamanDataset.current;
-    self.addRecord = metamanDataset.addRecord;
+    self.addRecord = function() {
+      self.selectedRecord = metamanDataset.addRecord() - 1;
+    };
     self.save = metamanDataset.save;
+    self.selectedRecord = -1;
   }]);
 
 metamanApp.controller('metamanAboutController', [
