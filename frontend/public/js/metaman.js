@@ -1,5 +1,5 @@
 var metamanApp = angular.module('metamanApp', [
-  'ngRoute', 'ngResource'
+  'ngRoute', 'ngResource', 'mgcrea.ngStrap'
 ]);
 
 metamanApp.factory( 'Resource', [ '$log', '$resource', function( $log, $resource ) {
