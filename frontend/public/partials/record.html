@@ -1,4 +1,7 @@
 <p>
 <label>Record name</label>
-<input type="text" ng-model="record.name"></p>
-<p>Records will go here...</p>
+<input type="text" ng-model="recordCtrl.record.name"></p>
+<button type='button' ng-click='recordCtrl.addField();'>Add field</button>
+<div>
+<div ng-repeat='f in recordCtrl.record.fields' metaman-field='f'></div>
+</div>

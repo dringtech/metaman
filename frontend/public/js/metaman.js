@@ -2,6 +2,19 @@ var metamanApp = angular.module('metamanApp', [
   'ngRoute', 'ngResource', 'mgcrea.ngStrap'
 ]);
 
+metamanApp.value('emptyRecord', 
+  {
+    name: "",
+    fields: []
+  });
+
+metamanApp.value('fieldTypes',
+  [
+    {value: 'string', label: 'Text'},
+    {value: 'numeric', label: 'Number'},
+    {value: 'boolean', label: 'True / False'}
+  ]);
+
 metamanApp.factory( 'Resource', [ '$log', '$resource', function( $log, $resource ) {
   return function( url, params, methods ) {
     var defaults = {
@@ -31,7 +44,28 @@ metamanApp.directive('metamanRecord', [
     return {
       scope: { record:'=metamanRecord' },
       bindToController: true,
+      controllerAs: 'recordCtrl',
+      controller: ['$element', '$attrs',
+        function($element, $attrs) {
+          var self = this;
+          self.addField = function() { self.record.fields.push({name: ""}); };
+        }
+      ],
       templateUrl: '/partials/record.html'
+    };
+}]);
+
+metamanApp.directive('metamanField', ['fieldTypes',
+  function(fieldTypes) {
+    return {
+      scope: { field:'=metamanField' },
+      bindToController: true,
+      controllerAs: 'fieldCtrl',
+      controller: ['fieldTypes', function (fieldTypes) {
+        var self = this;
+        self.fieldTypes = fieldTypes;
+      }],
+      templateUrl: '/partials/field.html'
     };
 }]);
 
@@ -39,12 +73,12 @@ metamanApp.factory('DataSets', function(Resource) {
   return new Resource('/api/v1/DataSets/:id', { id: '@_id'});
 });
 
-metamanApp.service('metamanDataset', ['DataSets',
-  function(DataSets) {
+metamanApp.service('metamanDataset', ['DataSets', 'emptyRecord',
+  function(DataSets, emptyRecord) {
     var currentDataset;
 
     var newDataSet = function(name) {
-      currentDataset = DataSets.create({'name': name});
+      currentDataset = DataSets.create({'name': name, records: []});
       return currentDataset;
     };
 
@@ -52,8 +86,8 @@ metamanApp.service('metamanDataset', ['DataSets',
       currentDataset = DataSets.get({ id: id });
     };
 
-    var addRecord = function(name) {
-      currentDataset.records.push({"name": name});
+    var addRecord = function() {
+      currentDataset.records.push(emptyRecord);
       return currentDataset.records.length;
     };
 
