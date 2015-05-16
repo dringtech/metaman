@@ -26,6 +26,15 @@ metamanApp.factory( 'Resource', [ '$log', '$resource', function( $log, $resource
   };
 }]);
 
+metamanApp.directive('metamanRecord', [
+  function() {
+    return {
+      scope: { record:'=metamanRecord' },
+      bindToController: true,
+      templateUrl: '/partials/record.html'
+    };
+}]);
+
 metamanApp.factory('DataSets', function(Resource) {
   return new Resource('/api/v1/DataSets/:id', { id: '@_id'});
 });
