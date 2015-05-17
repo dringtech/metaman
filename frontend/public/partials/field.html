@@ -1,7 +1,14 @@
-<p>
-<label>Name</label><input type='text' ng-model='fieldCtrl.field.name'>
-</p>
-<p>
-<label>Type</label><select ng-options='t.value as t.label for t in fieldCtrl.fieldTypes' ng-model='fieldCtrl.field.type'></select>
-
-</p>
+<div>
+  <div>
+    <label>Name</label><input type='text' ng-model='fieldCtrl.field.name'>
+    <label>External Name</label><input type='text' ng-model='fieldCtrl.field.externalName'>
+    <label>Type</label><select ng-options='t.value as t.label for t in fieldCtrl.fieldTypes' ng-model='fieldCtrl.field.type'></select>
+  </div>
+  <div><label>Description</label><textarea ng-model='fieldCtrl.field.description'></textarea></div>
+  <div>
+    <label>Category</label><input type='checkbox' ng-model='fieldCtrl.field.category'>
+    <label>Include</label><input type='checkbox' ng-model='fieldCtrl.field.include'>
+    <label>Personal</label><input type='checkbox' ng-model='fieldCtrl.field.personal'>
+    <label>Sensitive</label><input type='checkbox' ng-model='fieldCtrl.field.sensitive'>
+  </div>
+</div>

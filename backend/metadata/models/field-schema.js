@@ -1,14 +1,17 @@
 var mongoose = require('mongoose');
 
+var types = 'array boolean integer number null object string'.split(' ');
+
 module.exports = mongoose.Schema(
     {
         name: {type: String, required: true},
         externalName: {type: String},
         description: {type: String},
-        type: {type: String},
+        type: {type: String, enum: types},
         category: {type: Boolean},
         include: {type: Boolean},
-        personal: {type: Boolean}
+        personal: {type: Boolean},
+        sensitive: {type: Boolean}
     }
 );
 

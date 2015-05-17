@@ -8,11 +8,27 @@ metamanApp.value('emptyRecord',
     fields: []
   });
 
+metamanApp.value('emptyField', 
+  {
+    name: null,
+    externalName: null,
+    description: null,
+    type: 'null',
+    category: false,
+    include: false,
+    personal: false,
+    sensitive: false
+  });
+
 metamanApp.value('fieldTypes',
   [
-    {value: 'string', label: 'Text'},
-    {value: 'numeric', label: 'Number'},
-    {value: 'boolean', label: 'True / False'}
+    {value: 'null', label: 'Null'},
+    {value: 'boolean', label: 'True / False'},
+    {value: 'integer', label: 'Integer'},
+    {value: 'number', label: 'Number'},
+    {value: 'string', label: 'String'},
+    {value: 'array', label: 'Array'},
+    {value: 'object', label: 'Object'}
   ]);
 
 metamanApp.factory( 'Resource', [ '$log', '$resource', function( $log, $resource ) {
@@ -39,8 +55,8 @@ metamanApp.factory( 'Resource', [ '$log', '$resource', function( $log, $resource
   };
 }]);
 
-metamanApp.directive('metamanRecord', [
-  function() {
+metamanApp.directive('metamanRecord', ['emptyField',
+  function(emptyField) {
     return {
       scope: { record:'=metamanRecord' },
       bindToController: true,
@@ -48,7 +64,7 @@ metamanApp.directive('metamanRecord', [
       controller: ['$element', '$attrs',
         function($element, $attrs) {
           var self = this;
-          self.addField = function() { self.record.fields.push({name: ""}); };
+          self.addField = function() { self.record.fields.push(emptyField); };
         }
       ],
       templateUrl: '/partials/record.html'
