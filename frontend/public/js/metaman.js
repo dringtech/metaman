@@ -3,9 +3,11 @@ var metamanApp = angular.module('metamanApp', [
 ]);
 
 metamanApp.value('emptyRecord', 
-  {
-    name: "",
-    fields: []
+  function() {
+    return {
+      name: null,
+      fields: []
+    };
   });
 
 metamanApp.value('emptyField', 
@@ -103,7 +105,9 @@ metamanApp.service('metamanDataset', ['DataSets', 'emptyRecord',
     };
 
     var addRecord = function() {
-      currentDataset.records.push(emptyRecord);
+      var newRecord = emptyRecord();
+      newRecord.createdOn = new Date();
+      currentDataset.records.push(newRecord);
       return currentDataset.records.length;
     };
 

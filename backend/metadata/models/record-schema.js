@@ -5,6 +5,7 @@ var fieldSchema = require('./field-schema');
 module.exports = mongoose.Schema(
     {
         name: {type: String, required: true},
+        createdOn: {type: Date, default: Date.now},
         fields: [fieldSchema]
     }
 );
