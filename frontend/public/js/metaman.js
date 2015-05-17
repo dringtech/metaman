@@ -11,15 +11,17 @@ metamanApp.value('emptyRecord',
   });
 
 metamanApp.value('emptyField', 
-  {
-    name: null,
-    externalName: null,
-    description: null,
-    type: 'null',
-    category: false,
-    include: false,
-    personal: false,
-    sensitive: false
+  function() {
+    return {
+      name: null,
+      externalName: null,
+      description: null,
+      type: 'null',
+      category: false,
+      include: false,
+      personal: false,
+      sensitive: false
+    };
   });
 
 metamanApp.value('fieldTypes',
@@ -66,7 +68,7 @@ metamanApp.directive('metamanRecord', ['emptyField',
       controller: ['$element', '$attrs',
         function($element, $attrs) {
           var self = this;
-          self.addField = function() { self.record.fields.push(emptyField); };
+          self.addField = function() { self.record.fields.push(emptyField()); };
         }
       ],
       templateUrl: '/partials/record.html'
