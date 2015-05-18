@@ -1,7 +1,8 @@
-<p>
-<label>Record name</label>
-<input type="text" ng-model="recordCtrl.record.name"></p>
+<div class="field">
+    <label>Record name</label>
+    <input class="form-control" type="text" ng-model="recordCtrl.record.name">
+</div>
 <button type='button' ng-click='recordCtrl.addField();'>Add field</button>
-<div>
-<div ng-repeat='f in recordCtrl.record.fields' metaman-field='f'></div>
+<div class="panel-group" role="tablist" bs-collapse data-allow-multiple="true">
+<div class="panel panel-default" ng-repeat='f in recordCtrl.record.fields' metaman-field='f'></div>
 </div>

@@ -18,7 +18,7 @@ ng-app="metamanApp"
 <script src="/js/metaman.js"></script>
 {% endblock %}
 
-{% block bodycontent %}
+{% block nav %}
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" bs-navbar
     bs-collapse data-start-collapsed="true">
   <div class="navbar-header">
@@ -37,12 +37,12 @@ ng-app="metamanApp"
     </ul>
   </div>
 </nav>
-
-<div class="container">
-    <div class="starter-template" ng-view></div>
-</div>
-
 {% endblock %}
+
+{% block bodycontent %}
+    <div class="starter-template" ng-view></div>
+{% endblock %}
+
 
 {#
   Copyright 2015 Giles Dring

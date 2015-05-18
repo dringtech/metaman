@@ -4,7 +4,21 @@ body {
 .starter-template {
   padding: 40px 15px;
 }
-
+.field label {
+  font-size: 0.7em;
+  color: #909090;
+}
+.row {
+  position: relative;
+}
+.bottom-align-text {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.big-icon {
+  font-size: 24px
+}
 /*
   Copyright 2015 Giles Dring
 
