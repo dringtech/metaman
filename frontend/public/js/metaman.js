@@ -1,28 +1,51 @@
+var metamanValues = angular.module('metamanValues', [])
+  .value('emptyDataset',
+    function(name) {
+      return {
+        'name': name,
+        createdOn: new Date(),
+        structuredRecords: [],
+        unstructuredRecords: []
+      };
+    })
+  .value('emptyStructuredRecord', 
+    function() {
+      return {
+        name: null,
+        owner: null,
+        createdOn: new Date(),
+        technology: null,
+        fields: []
+      };
+    })
+  .value('emptyUnstructuredRecord', 
+    function() {
+      return {
+        name: null,
+        owner: null,
+        createdOn: new Date(),
+        format: null,
+        fields: []
+      };
+    })
+  .value('emptyField', 
+    function() {
+      return {
+        name: null,
+        externalName: null,
+        description: null,
+        type: 'null',
+        category: false,
+        include: false,
+        personal: false,
+        sensitive: false
+      };
+    });
+
 var metamanApp = angular.module('metamanApp', [
+  'metamanValues',
   'ngRoute', 'ngResource', 'mgcrea.ngStrap'
 ]);
-
-metamanApp.value('emptyRecord', 
-  function() {
-    return {
-      name: null,
-      fields: []
-    };
-  });
-
-metamanApp.value('emptyField', 
-  function() {
-    return {
-      name: null,
-      externalName: null,
-      description: null,
-      type: 'null',
-      category: false,
-      include: false,
-      personal: false,
-      sensitive: false
-    };
-  });
 
 metamanApp.value('fieldTypes',
   [
@@ -93,12 +116,12 @@ metamanApp.factory('DataSets', function(Resource) {
   return new Resource('/api/v1/DataSets/:id', { id: '@_id'});
 });
 
-metamanApp.service('metamanDataset', ['DataSets', 'emptyRecord',
-  function(DataSets, emptyRecord) {
+metamanApp.service('metamanDataset', ['DataSets', 'emptyDataset', 'emptyStructuredRecord',
+  function(DataSets, emptyDataset, emptyStructuredRecord) {
     var currentDataset;
 
     var newDataSet = function(name) {
-      currentDataset = DataSets.create({'name': name, records: []});
+      currentDataset = DataSets.create(emptyDataset(name));
       return currentDataset;
     };
 
@@ -106,11 +129,9 @@ metamanApp.service('metamanDataset', ['DataSets', 'emptyRecord',
       currentDataset = DataSets.get({ id: id });
     };
 
-    var addRecord = function() {
-      var newRecord = emptyRecord();
-      newRecord.createdOn = new Date();
-      currentDataset.records.push(newRecord);
-      return currentDataset.records.length;
+    var addStructuredRecord = function() {
+      currentDataset.structuredRecords.push(emptyStructuredRecord());
+      return currentDataset.structuredRecords.length;
     };
 
     var saveRecord = function(name) {
@@ -123,7 +144,7 @@ metamanApp.service('metamanDataset', ['DataSets', 'emptyRecord',
       create: newDataSet,
       save: saveRecord,
       select: selectDataSet,
-      addRecord: addRecord
+      addStructuredRecord: addStructuredRecord
     };
   }
 ]);
@@ -169,18 +190,24 @@ metamanApp.controller('metamanMainController', ['$log', '$location', 'metamanDat
   }
   ]);
 
-metamanApp.controller('metamanDatasetController', [ '$routeParams', 'metamanDataset',
-  function($routeParams, metamanDataset) {
+metamanApp.controller('metamanDatasetController', [ '$routeParams', 'metamanDataset', 'emptyUnstructuredRecord',
+  function($routeParams, metamanDataset, emptyUnstructuredRecord) {
     console.log('dataset controller initialising');
     var self = this;
     metamanDataset.select($routeParams.id);
     self.fields = ['name'];
     self.dataset = metamanDataset.current;
-    self.addRecord = function() {
-      self.selectedRecord = metamanDataset.addRecord() - 1;
+    self.addUnstructuredRecord = function() {
+      var unstructuredRecords = self.dataset().unstructuredRecords;
+      unstructuredRecords.push(emptyUnstructuredRecord());
+      self.selectedUnstructuredRecord = unstructuredRecords.length - 1;
+    };
+    self.addStructuredRecord = function() {
+      self.selectedRecord = metamanDataset.addStructuredRecord() - 1;
     };
     self.save = metamanDataset.save;
     self.selectedRecord = -1;
+    self.selectedUnstructuredRecord = -1;
   }]);
 
 metamanApp.controller('metamanAboutController', [

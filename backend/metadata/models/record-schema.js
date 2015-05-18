@@ -1,11 +1,29 @@
 var mongoose = require('mongoose');
-
 var fieldSchema = require('./field-schema');
+var util = require('util');
 
-module.exports = mongoose.Schema(
+var BaseRecordSchema = function() {
+    mongoose.Schema.apply(this, arguments);
+    this.add(
     {
         name: {type: String, required: true},
-        createdOn: {type: Date, default: Date.now},
+        owner: {type: String},
+        createdOn: {type: Date, default: Date.now}
+    }
+    );
+};
+util.inherits(BaseRecordSchema, mongoose.Schema);
+
+exports.UnstructuredRecordSchema = new BaseRecordSchema(
+    {
+        format: {type: String},
+        exemplar: {type: Buffer}
+    }
+);
+
+exports.StructuredRecordSchema = new BaseRecordSchema(
+    {
+        technology: {type: String},
         fields: [fieldSchema]
     }
 );

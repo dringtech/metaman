@@ -7,7 +7,9 @@ var dataSetSchema = mongoose.Schema(
     {
         name: {type: String, required: true},
         owner: {type: String},
-        records: [recordSchema]
+        createdOn: {type: Date, default: Date.now },
+        structuredRecords: [recordSchema.StructuredRecordSchema],
+        unstructuredRecords: [recordSchema.UnstructuredRecordSchema]
     }
 );
 
