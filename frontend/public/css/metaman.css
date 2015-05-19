@@ -20,12 +20,6 @@ body {
 .avoid-label {
   top: 27px;
 }
-.collapse-control:before {
-  content: "\e114"; /* chevron down */
-}
-.collapse-open .collapse-control:before {
-  content: "\e113"; /* chevron up */
-}
 /*
   Copyright 2015 Giles Dring
 

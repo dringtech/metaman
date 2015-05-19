@@ -17,7 +17,8 @@
         ng-model='fieldCtrl.field.type'></select>
     </div>
     <div class="col-xs-3 col-sm-1 field" bs-collapse-toggle>
-      <p class="glyphicon collapse-control big-icon text-right full-width avoid-label"></p>
+      <p class="glyphicon big-icon text-right full-width avoid-label"
+        ng-class='{"glyphicon-chevron-down": !fieldCtrl.open, "glyphicon-chevron-up": fieldCtrl.open}'></p>
     </div>
   </div>
 </div>

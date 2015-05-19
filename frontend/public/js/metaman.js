@@ -101,7 +101,7 @@ metamanApp.directive('metamanRecord', ['emptyField',
 metamanApp.directive('metamanField', ['fieldTypes',
   function(fieldTypes) {
     return {
-      scope: { field:'=metamanField' },
+      scope: { field:'=metamanField', open:'=fieldOpenedState' },
       bindToController: true,
       controllerAs: 'fieldCtrl',
       controller: ['fieldTypes', function (fieldTypes) {
