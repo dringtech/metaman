@@ -3,6 +3,6 @@
     <input class="form-control" type="text" ng-model="recordCtrl.record.name">
 </div>
 <button type='button' ng-click='recordCtrl.addField();'>Add field</button>
-<div class="panel-group" role="tablist" bs-collapse data-allow-multiple="true">
-<div class="panel panel-default" ng-repeat='f in recordCtrl.record.fields' metaman-field='f'></div>
+<div class="panel-group" ng-model="recordCtrl.openFields" role="tablist" bs-collapse data-allow-multiple="true">
+<div class="panel panel-default" ng-class="{'collapse-open': recordCtrl.openFields.indexOf($index) > -1}" ng-repeat='f in recordCtrl.record.fields' metaman-field='f'></div>
 </div>
