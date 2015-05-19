@@ -23,10 +23,12 @@
 <body>
 {% block nav %}
 {% endblock %}
-<div class="container">
+
+{% set container_type = "container" %}
+<main class="{{container_type}}">
 {% block bodycontent %}
 {% endblock %}
-</div>
+</main>
 {% block scripts %}
 {% endblock %}
 </body>

@@ -39,8 +39,10 @@ ng-app="metamanApp"
 </nav>
 {% endblock %}
 
+{% set container_type = "container-fluid" %}
+
 {% block bodycontent %}
-    <div class="starter-template" ng-view></div>
+    <div ng-view></div>
 {% endblock %}
 
 

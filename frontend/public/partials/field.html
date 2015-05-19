@@ -10,14 +10,14 @@
       <input class="form-control" type='text'
         ng-model='fieldCtrl.field.externalName'>
     </div>
-    <div class="col-xs-10 col-sm-3 field">
+    <div class="col-xs-9 col-sm-3 field">
       <label>Type</label>
       <select class="form-control"
         ng-options='t.value as t.label for t in fieldCtrl.fieldTypes'
         ng-model='fieldCtrl.field.type'></select>
     </div>
-    <div class="col-xs-2 col-sm-1 text-center bottom-align-text" bs-collapse-toggle>
-      <span class="glyphicon glyphicon-list-alt big-icon"></span>
+    <div class="col-xs-3 col-sm-1 field" bs-collapse-toggle>
+      <p class="glyphicon glyphicon-list-alt big-icon text-right full-width avoid-label"></p>
     </div>
   </div>
 </div>

@@ -11,13 +11,14 @@ body {
 .row {
   position: relative;
 }
-.bottom-align-text {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
 .big-icon {
-  font-size: 24px
+  font-size: 24px;
+}
+.full-width {
+  width: 100%;
+}
+.avoid-label {
+  top: 27px;
 }
 /*
   Copyright 2015 Giles Dring
