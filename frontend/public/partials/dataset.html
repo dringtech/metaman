@@ -12,7 +12,7 @@
 
 <button type="button" class="btn btn-default" ng-click="ctrl.addUnstructuredRecord()">Add unstructured record</button>
 <div class="panel-group" ng-model="ctrl.selectedUnstructuredRecord" role="tablist" aria-multiselectable="true" bs-collapse data-start-collapsed="true">
-  <div class="panel panel-default" ng-repeat="f in ctrl.dataset().unstructuredRecords">
+  <div class="unstructured-record panel panel-default" ng-repeat="f in ctrl.dataset().unstructuredRecords">
     <div class="panel-heading" role="tab">
       <h4 class="panel-title">
         <a bs-collapse-toggle>{{ f.name }}</a>
@@ -28,7 +28,7 @@
 
 <button type="button" class="btn btn-default" ng-click="ctrl.addStructuredRecord()">Add structured record</button>
 <div class="list-group">
-  <div class="list-group-item" ng-repeat="f in ctrl.dataset().structuredRecords" metaman-record="f"></div>
+  <div class="structured-record list-group-item" ng-repeat="f in ctrl.dataset().structuredRecords" metaman-record="f"></div>
 </div>
 
 

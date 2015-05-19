@@ -1,8 +1,13 @@
-<div bs-collapse data-start-collapsed="true">
-  <div class="list-group-item-heading field">
-    <label>Structured Record</label>
-    <span class="align-right glyphicon glyphicon-chevron-down" bs-collapse-toggle></span>
-    <input class="form-control" type="text" ng-model="recordCtrl.record.name">
+<div class="structured-record" bs-collapse data-start-collapsed="true" ng-model="recordCtrl.collapseState">
+  <div class="list-group-item-heading field row">
+    <div class="col-xs-9 col-sm-11">
+      <label>Structured Record</label>
+      <input class="form-control" type="text" ng-model="recordCtrl.record.name">
+    </div>
+    <div class="col-xs-3 col-sm-1">
+      <span class="text-right big-icon glyphicon full-width"
+        ng-class="recordCtrl.getIcon()" bs-collapse-toggle></span>
+    </div>
   </div>
   <div bs-collapse-target>
     <div class="list-group-item-text">

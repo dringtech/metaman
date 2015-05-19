@@ -20,6 +20,12 @@ body {
 .avoid-label {
   top: 27px;
 }
+.unstructured-record {
+  background-color: #F8ECE0;
+}
+.structured-record {
+  background-color: #E0F8EC;
+}
 /*
   Copyright 2015 Giles Dring
 
