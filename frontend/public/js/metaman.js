@@ -101,12 +101,17 @@ metamanApp.directive('metamanRecord', ['emptyField',
 metamanApp.directive('metamanField', ['fieldTypes',
   function(fieldTypes) {
     return {
-      scope: { field:'=metamanField', open:'=fieldOpenedState' },
+      scope: { field:'=metamanField' },
       bindToController: true,
       controllerAs: 'fieldCtrl',
       controller: ['fieldTypes', function (fieldTypes) {
         var self = this;
         self.fieldTypes = fieldTypes;
+        self.open = function() { return (self.collapseState === 0); };
+        self.getIcon = function() {
+          console.log(self.open());
+          return self.open()?'glyphicon-chevron-up':'glyphicon-chevron-down';
+        };
       }],
       templateUrl: '/partials/field.html'
     };

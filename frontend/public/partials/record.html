@@ -1,9 +1,19 @@
-<div class="field">
-    <label>Record name</label>
+<div bs-collapse data-start-collapsed="true">
+  <div class="list-group-item-heading field">
+    <label>Structured Record</label>
+    <span class="align-right glyphicon glyphicon-chevron-down" bs-collapse-toggle></span>
     <input class="form-control" type="text" ng-model="recordCtrl.record.name">
-</div>
-<button type='button' ng-click='recordCtrl.addField();'>Add field</button>
-<div class="panel-group" ng-model="recordCtrl.openFields" role="tablist" bs-collapse data-start-collapsed="true" data-allow-multiple="true">
-<div class="panel panel-default" ng-repeat='f in recordCtrl.record.fields' metaman-field='f'
-    field-opened-state='recordCtrl.openFields.indexOf($index) > -1'></div>
+  </div>
+  <div bs-collapse-target>
+    <div class="list-group-item-text">
+      <button type='button' class="btn btn-default"
+        ng-click='recordCtrl.addField();'>Add field</button>
+      <ul class="list-group" ng-model="recordCtrl.openFields" bs-collapse
+        data-start-collapsed="true" data-allow-multiple="true">
+        <li class="list-group-item" ng-repeat="f in recordCtrl.record.fields"
+          metaman-field="f"
+          field-opened-state="recordCtrl.openFields.indexOf($index) > 1"></li>
+      </ul>
+    </div>
+  </div>
 </div>

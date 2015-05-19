@@ -1,4 +1,4 @@
-<div class="panel-heading" role="tab">
+<div role="tab" bs-collapse ng-model="fieldCtrl.collapseState" data-start-collapsed="true">
   <div class="row">
     <div class="col-xs-12 col-sm-4 field">
       <label>Name</label>
@@ -18,41 +18,41 @@
     </div>
     <div class="col-xs-3 col-sm-1 field" bs-collapse-toggle>
       <p class="glyphicon big-icon text-right full-width avoid-label"
-        ng-class='{"glyphicon-chevron-down": !fieldCtrl.open, "glyphicon-chevron-up": fieldCtrl.open}'></p>
+        ng-class='fieldCtrl.getIcon()'></p>
     </div>
   </div>
-</div>
-<div class="panel-body panel-collapse" role="tabpanel" bs-collapse-target>
-  <div class="row">
-    <div class="col-sm-12 field">
-      <label>Description</label>
-      <textarea class="form-control" ng-model='fieldCtrl.field.description' rows='3'></textarea>
+  <div role="tabpanel" bs-collapse-target>
+    <div class="row">
+      <div class="col-sm-12 field">
+        <label>Description</label>
+        <textarea class="form-control" ng-model='fieldCtrl.field.description' rows='3'></textarea>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6 col-sm-3">
-      <label class="checkbox-inline">
-        <input type='checkbox' ng-model='fieldCtrl.field.category'>
-        Category
-      </label>
-    </div>
-    <div class="col-xs-6 col-sm-3">
-      <label class="checkbox-inline">
-        <input type='checkbox' ng-model='fieldCtrl.field.include'>
-        Include
-      </label>
-    </div>
-    <div class="col-xs-6 col-sm-3">
-      <label class="checkbox-inline">
-        <input type='checkbox' ng-model='fieldCtrl.field.personal'>
-        Personal
-      </label>
-    </div>
-    <div class="col-xs-6 col-sm-3">
-      <label class="checkbox-inline">
-        <input type='checkbox' ng-model='fieldCtrl.field.sensitive'>
-        Sensitive
-      </label>
+    <div class="row">
+      <div class="col-xs-6 col-sm-3">
+        <label class="checkbox-inline">
+          <input type='checkbox' ng-model='fieldCtrl.field.category'>
+          Category
+        </label>
+      </div>
+      <div class="col-xs-6 col-sm-3">
+        <label class="checkbox-inline">
+          <input type='checkbox' ng-model='fieldCtrl.field.include'>
+          Include
+        </label>
+      </div>
+      <div class="col-xs-6 col-sm-3">
+        <label class="checkbox-inline">
+          <input type='checkbox' ng-model='fieldCtrl.field.personal'>
+          Personal
+        </label>
+      </div>
+      <div class="col-xs-6 col-sm-3">
+        <label class="checkbox-inline">
+          <input type='checkbox' ng-model='fieldCtrl.field.sensitive'>
+          Sensitive
+        </label>
+      </div>
     </div>
   </div>
 </div>

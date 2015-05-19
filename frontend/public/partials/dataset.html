@@ -27,17 +27,8 @@
 </div>
 
 <button type="button" class="btn btn-default" ng-click="ctrl.addStructuredRecord()">Add structured record</button>
-<div class="panel-group" ng-model="ctrl.selectedRecord" role="tablist" aria-multiselectable="true" bs-collapse data-start-collapsed="true">
-  <div class="panel panel-default" ng-repeat="f in ctrl.dataset().structuredRecords">
-    <div class="panel-heading" role="tab">
-      <h4 class="panel-title">
-        <a bs-collapse-toggle>{{ f.name }}</a>
-      </h4>
-    </div>
-    <div class="panel-collapse" role="tabpanel" bs-collapse-target>
-      <div class="panel-body" metaman-record="f"></div>
-    </div>
-  </div>
+<div class="list-group">
+  <div class="list-group-item" ng-repeat="f in ctrl.dataset().structuredRecords" metaman-record="f"></div>
 </div>
 
 
