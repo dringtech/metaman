@@ -4,7 +4,7 @@ var app = express();
 var compression = require('compression');
 var morgan = require('morgan');
 
-app.use(compression());
+app.use(compression({threshold: false}));
 app.use(morgan('dev'));
 
 app.use(require('./frontend'));
